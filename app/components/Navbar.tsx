@@ -16,7 +16,7 @@ export default function Navbar({ isIndexRoute }: NavbarProps) {
 
   return (
     <header className={`py-4 ${isIndexRoute ? 'absolute top-0 left-0 w-full z-50' : 'bg-lime-50'}`}>
-      <div className="mx-w-7xl px-2 sm:px-4 py-2">
+      <div className="mx-w-7xl mx-auto px-2 sm:px-4 py-2">
         <div className="flex justify-between items-center">
           <Link to="/" className={`${isIndexRoute ? 'text-white' : 'text-lime-900'} text-xl sm:text-2xl`}>
             Home Inspectors California
