@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* @layer components {
-  .custom-class {
-    @apply ...;
+  a.active {
+    @apply text-blue-700;
   }
 } */

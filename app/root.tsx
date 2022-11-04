@@ -1,5 +1,6 @@
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from '@remix-run/react';
+import Navbar from './components/Navbar';
 
 import styles from './tailwind.css';
 
@@ -17,6 +18,8 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
+  const location = useLocation();
+  const isIndexRoute = location.pathname === '/';
   return (
     <html lang="en">
       <head>
@@ -24,7 +27,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <>
+          <Navbar isIndexRoute={isIndexRoute} />
+          <Outlet />
+          {!isIndexRoute ? <footer>footer goes here</footer> : null}
+        </>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
