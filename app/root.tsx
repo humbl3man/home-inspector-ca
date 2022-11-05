@@ -30,7 +30,13 @@ export default function App() {
       <body>
         <>
           <Navbar isIndexRoute={isIndexRoute} />
-          <Outlet />
+          {isIndexRoute ? (
+            <Outlet />
+          ) : (
+            <main className="mt-12 mx-auto max-w-7xl px-2">
+              <Outlet />
+            </main>
+          )}
           {!isIndexRoute ? <Footer /> : null}
         </>
         <ScrollRestoration />
