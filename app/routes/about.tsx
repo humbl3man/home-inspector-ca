@@ -2,6 +2,7 @@ import heroImage from '../../public/house.jpg';
 import expertizeImage from '../../public/expertise.jpg';
 import detailImage from '../../public/attention-to-detail.jpg';
 import confidenceImage from '../../public/confidence.jpg';
+import type { MetaFunction } from '@remix-run/node';
 
 type SectionCardParams = {
   image: {
@@ -11,6 +12,13 @@ type SectionCardParams = {
   title: string;
   text: string;
 };
+
+export const meta: MetaFunction = ({ parentsData }) => {
+  return {
+    title: `${parentsData.root.siteTitle} | About`
+  };
+};
+
 function SectionCard({ image, title, text }: SectionCardParams) {
   return (
     <section className="relative  p-6 overflow-hidden shadow-lg rounded-md">

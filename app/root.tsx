@@ -1,15 +1,24 @@
-import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import type { LinksFunction, MetaFunction, LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from '@remix-run/react';
 import { Footer } from './components/Footer';
 import Navbar from './components/Navbar';
 
 import styles from './tailwind.css';
 
-export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'Home Inspectors California',
-  viewport: 'width=device-width,initial-scale=1'
-});
+export const loader: LoaderFunction = () => {
+  return json({
+    siteTitle: 'Home Inspectors California'
+  });
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  return {
+    charset: 'utf-8',
+    title: data.siteTitle,
+    viewport: 'width=device-width,initial-scale=1'
+  };
+};
 
 export const links: LinksFunction = () => [
   {
