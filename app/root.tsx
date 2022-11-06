@@ -4,6 +4,8 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocatio
 import { Footer } from './components/Footer';
 import Navbar from './components/Navbar';
 
+import favIcon from '../public/favicon.png';
+
 import styles from './tailwind.css';
 
 export const loader: LoaderFunction = () => {
@@ -21,6 +23,10 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export const links: LinksFunction = () => [
+  {
+    rel: 'icon',
+    href: favIcon
+  },
   {
     rel: 'stylesheet',
     href: styles
