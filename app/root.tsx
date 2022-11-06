@@ -33,7 +33,7 @@ export default function App() {
           {isIndexRoute ? (
             <Outlet />
           ) : (
-            <main className="mt-12 mx-auto max-w-7xl px-2">
+            <main className="mt-8 mb-16">
               <Outlet />
             </main>
           )}

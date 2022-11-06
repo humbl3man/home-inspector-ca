@@ -6,7 +6,7 @@ export default function IndexRoute() {
     <div className="relative overflow-hidden h-screen">
       <div className="absolute w-full h-full inset-0 px-4 flex items-center">
         <img className="w-full h-full absolute inset-0 object-cover" src={homeBackgroundImage} alt="" />
-        <div className="relative z-10 max-w-7xl px-2">
+        <div className="relative z-10 max-w-7xl mx-auto px-2">
           <h1 className="uppercase leading-none tracking-tight text-white text-5xl sm:text-6xl md:text-7xl mb-8 font-bold">
             Home Inspectors <br /> California
           </h1>
