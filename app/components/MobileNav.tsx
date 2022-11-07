@@ -10,7 +10,11 @@ type MobileNavProps = {
   onLinkClick?: () => void;
 };
 
-export default function MobileNav({ navLinks, isNavOpen, onLinkClick }: MobileNavProps) {
+export default function MobileNav({
+  navLinks,
+  isNavOpen,
+  onLinkClick
+}: MobileNavProps) {
   return (
     <motion.nav
       style={{
@@ -22,15 +26,27 @@ export default function MobileNav({ navLinks, isNavOpen, onLinkClick }: MobileNa
       animate={{
         scale: isNavOpen ? 1 : 0
       }}
-      className={`absolute pt-16 pb-8 px-10 top-2 right-2 min-w-[50vw] z-[999] bg-lime-50 rounded-lg shadow-lg sm:hidden`}>
+      className={`absolute top-2 right-2 z-[999] min-w-[50vw] rounded-lg bg-lime-50 px-10 pt-16 pb-8 shadow-lg sm:hidden`}
+    >
       {/* close navigation icon */}
-      <button type="button" className="absolute top-[20px] right-[20px] sm:hidden" aria-label="Close Navigation Menu" onClick={onLinkClick}>
-        <CloseIcon className="text-black text-[30px]" />
+      <button
+        type="button"
+        className="absolute top-[20px] right-[20px] sm:hidden"
+        aria-label="Close Navigation Menu"
+        onClick={onLinkClick}
+      >
+        <CloseIcon className="text-[30px] text-black" />
       </button>
-      <ul className="grid grid-flow-row gap-4 ml-4">
+      <ul className="ml-4 grid grid-flow-row gap-4">
         {navLinks.map((link) => {
           return (
-            <NavLink prefetch="intent" onClick={onLinkClick} key={link.id} to={link.href} className="text-black text-xl">
+            <NavLink
+              prefetch="intent"
+              onClick={onLinkClick}
+              key={link.id}
+              to={link.href}
+              className="text-xl text-black"
+            >
               {link.label}
             </NavLink>
           );

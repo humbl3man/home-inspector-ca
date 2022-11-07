@@ -1,6 +1,18 @@
-import type { LinksFunction, MetaFunction, LoaderFunction } from '@remix-run/node';
+import type {
+  LinksFunction,
+  MetaFunction,
+  LoaderFunction
+} from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from '@remix-run/react';
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLocation
+} from '@remix-run/react';
 import { Footer } from './components/Footer';
 import Navbar from './components/Navbar';
 
