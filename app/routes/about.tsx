@@ -3,6 +3,7 @@ import expertizeImage from '../../public/expertise.jpg';
 import detailImage from '../../public/attention-to-detail.jpg';
 import confidenceImage from '../../public/confidence.jpg';
 import type { MetaFunction } from '@remix-run/node';
+import type { LinksFunction } from '@remix-run/react/dist/routeModules';
 
 type SectionCardParams = {
   image: {
@@ -18,6 +19,14 @@ export const meta: MetaFunction = ({ parentsData }) => {
     title: `${parentsData.root.siteTitle} | About`
   };
 };
+
+export const links: LinksFunction = () => [
+  {
+    rel: 'preload',
+    href: heroImage,
+    as: 'image'
+  }
+];
 
 function SectionCard({ image, title, text }: SectionCardParams) {
   return (

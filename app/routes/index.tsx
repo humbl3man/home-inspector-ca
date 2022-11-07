@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node';
+import type { MetaFunction, LinksFunction } from '@remix-run/node';
 import { Link } from '@remix-run/react';
 import homeBackgroundImage from '../../public/home-background-image.jpg';
 
@@ -6,6 +6,16 @@ export const meta: MetaFunction = ({ parentsData }) => {
   return {
     title: `${parentsData.root.siteTitle} | Home`
   };
+};
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: 'preload',
+      href: homeBackgroundImage,
+      as: 'image'
+    }
+  ];
 };
 
 export default function IndexRoute() {
