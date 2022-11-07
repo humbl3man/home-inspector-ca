@@ -2,6 +2,9 @@ import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
+import { useState } from 'react';
+
+const phoneRegex = /^\(?([0-9]{3})\)?[-.●\s]?([0-9]{3})[-.●\s]?([0-9]{4})$/gi;
 
 type ActionData =
   | {
@@ -17,7 +20,7 @@ export const action: ActionFunction = async ({ request }) => {
   const name = formData.get('name');
   const email = formData.get('email');
   const phone = formData.get('phone');
-  const message = formData.get('message');
+  // const message = formData.get('message');
 
   const errors: ActionData = {
     name: !name ? 'Name is required' : null,
@@ -38,16 +41,14 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function ContactIndexRoute() {
   const errors = useActionData<ActionData>();
+  const [phone, setPhone] = useState('');
   const inputClassName =
     'border border-slate-400 bg-white leading-none p-2 rounded-md w-full block focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-lime-500';
   const labelClassName = 'cursor-pointer font-semibold mb-1 inline-block';
   const errorClassName = 'font-normal text-sm italic text-red-500';
 
   return (
-    <Form
-      method="post"
-      className="rounded-md border border-gray-100 bg-gray-50 p-4 drop-shadow-md"
-    >
+    <Form method="post" data-netlify={true}>
       <div className="mb-4 grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClassName}>
@@ -56,7 +57,13 @@ export default function ContactIndexRoute() {
               <span className={errorClassName}>Name is Required</span>
             ) : null}
           </label>
-          <input id="name" type="text" name="name" className={inputClassName} />
+          <input
+            id="name"
+            type="text"
+            name="name"
+            className={inputClassName}
+            required
+          />
         </div>
         <div>
           <label htmlFor="phone" className={labelClassName}>
@@ -70,6 +77,14 @@ export default function ContactIndexRoute() {
             type="phone"
             name="phone"
             className={inputClassName}
+            required
+            onChange={(e) => {
+              setPhone(e.target.value.trim());
+            }}
+            onBlur={(e) => {
+              setPhone(e.target.value.trim().replace(phoneRegex, '($1) $2-$3'));
+            }}
+            value={phone}
           />
         </div>
       </div>
@@ -84,6 +99,7 @@ export default function ContactIndexRoute() {
           id="email"
           type="email"
           name="email"
+          required
           className={inputClassName}
         />
       </div>
