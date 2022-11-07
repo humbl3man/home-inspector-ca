@@ -40,7 +40,7 @@ export default function Navbar({ isIndexRoute }: NavbarProps) {
         isIndexRoute ? 'absolute top-0 left-0 z-50 w-full' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto max-w-7xl px-2 py-2 sm:px-4">
+      <div className="mx-auto max-w-7xl px-2 py-2">
         <div className="flex items-center justify-between">
           <Link
             to="/"
