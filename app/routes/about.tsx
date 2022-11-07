@@ -30,7 +30,7 @@ export const links: LinksFunction = () => [
 
 function SectionCard({ image, title, text }: SectionCardParams) {
   return (
-    <section className="relative  overflow-hidden rounded-md p-6 shadow-lg">
+    <section className="relative h-full overflow-hidden rounded-md p-6 shadow-lg">
       <img
         className="absolute inset-0 h-full w-full object-cover"
         src={image.src}
@@ -40,7 +40,7 @@ function SectionCard({ image, title, text }: SectionCardParams) {
       <div className="z-1 relative mx-auto max-w-lg">
         <h3 className="mb-4 text-2xl font-bold text-white">{title}</h3>
         <div
-          className="text-zinc-50"
+          className="text-white opacity-80"
           dangerouslySetInnerHTML={{ __html: text }}
         />
       </div>
@@ -60,7 +60,7 @@ export default function AboutRoute() {
         <div className="absolute inset-0 h-full w-full bg-[rgba(21,49,36,0.74)] mix-blend-multiply"></div>
         <div className="relative mx-auto max-w-2xl px-2">
           <h1 className="mb-4 text-4xl font-bold text-white">About Us</h1>
-          <p className="text-zinc-50">
+          <p className="text-white opacity-80">
             At Home Inspectors California, we are dedicated to setting the
             standard in affordability, professionalism, and efficiency in the
             home inspection business. We understand that every real estate
@@ -81,27 +81,32 @@ export default function AboutRoute() {
       </div>
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <SectionCard
-            image={{ src: detailImage, alt: 'experts' }}
-            title="Knowledgeable Home Inspector Experts"
-            text="The main purpose of a home inspection is to give you the information needed to make an informed decision on the purchase. <br /> It is critical to choose the right inspector
+          <div className="min-h-[300px]">
+            <SectionCard
+              image={{ src: detailImage, alt: 'experts' }}
+              title="Knowledgeable Home Inspector Experts"
+              text="The main purpose of a home inspection is to give you the information needed to make an informed decision on the purchase. <br /> It is critical to choose the right inspector
             for one of the most important emotional decisions and financial investments that you will ever make. Home inspections are an instrumental part of the home buying
             process that can save you a lot of time and money in the long run."
-          />
-
-          <SectionCard
-            image={{ src: expertizeImage, alt: 'professional' }}
-            title="We Notice Little Things"
-            text="Our inspections are based upon the International Standards of Practice for Performing a General Home Inspection, provided by InterNachi. <br /> This checklist may be used to
+            />
+          </div>
+          <div className="min-h-[300px]">
+            <SectionCard
+              image={{ src: expertizeImage, alt: 'professional' }}
+              title="We Notice Little Things"
+              text="Our inspections are based upon the International Standards of Practice for Performing a General Home Inspection, provided by InterNachi. <br /> This checklist may be used to
         perform a visual inspection of a home and provide the inspector with a written report identifying the defects that were (1) observed and (2) deemed material."
-          />
+            />
+          </div>
 
-          <SectionCard
-            image={{ src: confidenceImage, alt: 'happy couple' }}
-            title="Be Confident In Your Property Transaction"
-            text="When you work with us, we provide professional home inspectors that give their full attention to your home. <br />
-        We pride ourselves on the high standard we set for our inspections, because we know what a safe home means to you."
-          />
+          <div className="min-h-[300px] sm:col-span-full lg:col-span-1">
+            <SectionCard
+              image={{ src: confidenceImage, alt: 'happy couple' }}
+              title="Be Confident In Your Property Transaction"
+              text="When you work with us, we provide professional home inspectors that give their full attention to your home. <br />
+          We pride ourselves on the high standard we set for our inspections, because we know what a safe home means to you."
+            />
+          </div>
         </div>
       </div>
     </div>
