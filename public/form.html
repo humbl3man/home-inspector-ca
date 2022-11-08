@@ -1,0 +1,27 @@
+<form method="post" name="contact" netlify>
+  <input type="hidden" name="form-name" value="contact" />
+  <div className="mb-4 grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="name"> Name: </label>
+      <input id="name" type="text" name="name" required />
+    </div>
+    <div>
+      <label for="phone"> Phone: </label>
+      <input id="phone" type="phone" name="phone" required />
+    </div>
+  </div>
+  <div className="mb-4">
+    <label for="email"> Email: </label>
+    <input id="email" type="email" name="email" required />
+  </div>
+  <div className="mb-8">
+    <label for="message"> Message: </label>
+    <textarea id="message" name="message" rows="5" />
+  </div>
+  <button
+    type="submit"
+    className="block w-full rounded-md border border-lime-600 bg-lime-600 p-2 text-lime-50 hover:border-lime-700  hover:bg-lime-700"
+  >
+    Submit
+  </button>
+</form>

@@ -3,8 +3,13 @@ import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
 import { useState } from 'react';
+import invariant from 'tiny-invariant';
 
 const phoneRegex = /^\(?([0-9]{3})\)?[-.●\s]?([0-9]{3})[-.●\s]?([0-9]{4})$/gi;
+const encode = (data: { [x: string]: string | number | boolean }) =>
+  Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&');
 
 type ActionData =
   | {
@@ -20,7 +25,7 @@ export const action: ActionFunction = async ({ request }) => {
   const name = formData.get('name');
   const email = formData.get('email');
   const phone = formData.get('phone');
-  // const message = formData.get('message');
+  const message = formData.get('message');
 
   const errors: ActionData = {
     name: !name ? 'Name is required' : null,
@@ -35,7 +40,33 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   // TODO: backend to actually submit form data
+
+  invariant(typeof name === 'string', 'Name is required');
+  invariant(typeof email === 'string', 'Email is required');
+  invariant(typeof phone === 'string', 'Phone is required');
+  invariant(typeof message === 'string', 'Message submitted incorrectly');
   // for now, redirect to thank you page
+
+  const contactData = {
+    name,
+    email,
+    phone,
+    message
+  };
+  const response = await fetch(`${request.url}/form`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: encode({ 'form-name': 'contact', ...contactData })
+  });
+
+  // const submitRequest = await processContactRequest({
+  //   name,
+  //   email,
+  //   phone,
+  //   message
+  // });
   return redirect('/contact/thank-you');
 };
 
@@ -48,7 +79,7 @@ export default function ContactIndexRoute() {
   const errorClassName = 'font-normal text-sm italic text-red-500';
 
   return (
-    <Form method="post" data-netlify={true}>
+    <Form method="post" name="contact">
       <div className="mb-4 grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClassName}>
