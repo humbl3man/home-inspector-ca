@@ -40,15 +40,16 @@ export default function MobileNav({
       <ul className="ml-4 grid grid-flow-row gap-4">
         {navLinks.map((link) => {
           return (
-            <NavLink
-              prefetch="intent"
-              onClick={onLinkClick}
-              key={link.id}
-              to={link.href}
-              className="text-xl text-black"
-            >
-              {link.label}
-            </NavLink>
+            <li key={link.id}>
+              <NavLink
+                prefetch="intent"
+                onClick={onLinkClick}
+                to={link.href}
+                className="text-xl text-black"
+              >
+                {link.label}
+              </NavLink>
+            </li>
           );
         })}
       </ul>

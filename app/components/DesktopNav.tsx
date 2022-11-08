@@ -10,18 +10,19 @@ export function DesktopNav({ navLinks, isIndexRoute }: DesktopNavProps) {
       <ul className="mt-0 ml-0 grid grid-flow-col gap-4 ">
         {navLinks.map((link) => {
           return (
-            <NavLink
-              prefetch="intent"
-              key={link.id}
-              className={({ isActive }) =>
-                `font-semibold hover:opacity-80 ${
-                  isIndexRoute ? 'text-white' : 'text-black'
-                } ${isActive ? 'opacity-100' : 'opacity-70'}`
-              }
-              to={link.href}
-            >
-              {link.label}
-            </NavLink>
+            <li key={link.id}>
+              <NavLink
+                prefetch="intent"
+                className={({ isActive }) =>
+                  `font-semibold hover:opacity-80 ${
+                    isIndexRoute ? 'text-white' : 'text-black'
+                  } ${isActive ? 'opacity-100' : 'opacity-70'}`
+                }
+                to={link.href}
+              >
+                {link.label}
+              </NavLink>
+            </li>
           );
         })}
       </ul>

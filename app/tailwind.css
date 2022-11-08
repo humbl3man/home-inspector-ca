@@ -1081,16 +1081,6 @@ video {
   outline-color: #84cc16;
 }
 
-.disabled\:border-lime-400:disabled {
-  --tw-border-opacity: 1;
-  border-color: rgb(163 230 53 / var(--tw-border-opacity));
-}
-
-.disabled\:bg-lime-400:disabled {
-  --tw-bg-opacity: 1;
-  background-color: rgb(163 230 53 / var(--tw-bg-opacity));
-}
-
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
 }
