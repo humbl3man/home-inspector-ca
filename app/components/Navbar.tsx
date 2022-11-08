@@ -12,11 +12,16 @@ const navLinks = [
   },
   {
     id: 2,
+    href: 'services',
+    label: 'Services'
+  },
+  {
+    id: 3,
     href: 'about',
     label: 'About'
   },
   {
-    id: 3,
+    id: 4,
     href: 'contact',
     label: 'Contact'
   }
