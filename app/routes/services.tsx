@@ -1,9 +1,23 @@
+import type { MetaFunction } from '@remix-run/node';
 import { Link } from '@remix-run/react';
+
+import housesImage from '../../public/houses.svg';
+
+export const meta: MetaFunction = ({ parentsData }) => {
+  return {
+    title: `${parentsData.root.siteTitle} | Services`
+  };
+};
 
 export default function ServicesRoute() {
   return (
     <div className="mx-auto max-w-7xl px-2">
-      <h1 className="mb-8 text-4xl font-bold">Services</h1>
+      <h1 className="mb-8 text-4xl font-bold md:px-4">Services</h1>
+      <img
+        src={housesImage}
+        className="mx-auto mb-10 block w-[36rem] object-fill"
+        alt="Houses"
+      />
       <div className="grid gap-8 md:grid-cols-2 md:gap-10">
         <section className="transition-colors duration-200 md:p-4 md:hover:bg-lime-50">
           <h2 className="mb-2 text-2xl font-bold">Buyer Inspections</h2>
