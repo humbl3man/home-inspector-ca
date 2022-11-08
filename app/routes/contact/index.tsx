@@ -1,7 +1,7 @@
 import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { Form, useActionData } from '@remix-run/react';
+import { Form, useActionData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 import invariant from 'tiny-invariant';
 
@@ -39,13 +39,10 @@ export const action: ActionFunction = async ({ request }) => {
     return json<ActionData>(errors);
   }
 
-  // TODO: backend to actually submit form data
-
   invariant(typeof name === 'string', 'Name is required');
   invariant(typeof email === 'string', 'Email is required');
   invariant(typeof phone === 'string', 'Phone is required');
   invariant(typeof message === 'string', 'Message submitted incorrectly');
-  // for now, redirect to thank you page
 
   const contactData = {
     name,
@@ -53,20 +50,13 @@ export const action: ActionFunction = async ({ request }) => {
     phone,
     message
   };
-  const response = await fetch(`${request.url}/form`, {
+  await fetch(`${process.env.URL || request.url}/form`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: encode({ 'form-name': 'contact', ...contactData })
   });
-
-  // const submitRequest = await processContactRequest({
-  //   name,
-  //   email,
-  //   phone,
-  //   message
-  // });
   return redirect('/contact/thank-you');
 };
 
@@ -77,6 +67,8 @@ export default function ContactIndexRoute() {
     'border border-slate-400 bg-white leading-none p-2 rounded-md w-full block focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-lime-500';
   const labelClassName = 'cursor-pointer font-semibold mb-1 inline-block';
   const errorClassName = 'font-normal text-sm italic text-red-500';
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   return (
     <Form method="post" name="contact">
@@ -147,9 +139,10 @@ export default function ContactIndexRoute() {
       </div>
       <button
         type="submit"
-        className="block w-full rounded-md border border-lime-600 bg-lime-600 p-2 text-lime-50 hover:border-lime-700  hover:bg-lime-700"
+        className="block w-full rounded-md border border-lime-600 bg-lime-600 p-2 text-lime-50 hover:border-lime-700  hover:bg-lime-700 disabled:opacity-50"
+        disabled={isSubmitting}
       >
-        Submit
+        {isSubmitting ? 'Processing...' : 'Submit'}
       </button>
     </Form>
   );
