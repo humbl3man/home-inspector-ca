@@ -132,7 +132,7 @@ export function CatchBoundary() {
   );
 }
 
-export function ErrorBoundary({ error }) {
+export function ErrorBoundary({ error }: { error: any }) {
   console.error(error);
   return (
     <html lang="en">
