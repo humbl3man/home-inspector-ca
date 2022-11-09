@@ -6,7 +6,7 @@ import homeBackgroundImage from '../../public/home-background-image.jpg';
 
 export const meta: MetaFunction = ({ parentsData }) => {
   return {
-    title: `${parentsData.root.siteTitle} | Home`
+    title: parentsData.root.siteTitle
   };
 };
 

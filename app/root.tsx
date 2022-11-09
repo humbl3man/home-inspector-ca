@@ -1,8 +1,7 @@
 import type {
   LinksFunction,
   MetaFunction,
-  LoaderFunction,
-  ErrorBoundaryComponent
+  LoaderFunction
 } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import {
@@ -23,8 +22,7 @@ import favIcon from '../public/favicon.png';
 import notFoundImage from '../public/construction.svg';
 
 import styles from './tailwind.css';
-
-const SITE_TITLE = 'Home Inspectors California';
+import { SITE_TITLE } from './config/site';
 
 export const loader: LoaderFunction = () => {
   return json({
@@ -93,8 +91,10 @@ export function CatchBoundary() {
   return (
     <html lang="en">
       <head>
-        <Meta />
         <Links />
+        <title>{`${
+          caught.status === 404 ? 'Page Not Found' : 'Error'
+        } | ${SITE_TITLE}`}</title>
       </head>
       <body className="min-h-screen">
         <div className="grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]">

@@ -16,7 +16,7 @@ type SectionCardParams = {
 
 export const meta: MetaFunction = ({ parentsData }) => {
   return {
-    title: `${parentsData.root.siteTitle} | About`
+    title: `About | ${parentsData.root.siteTitle}`
   };
 };
 

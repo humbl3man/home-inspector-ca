@@ -5,7 +5,7 @@ import housesImage from '../../public/houses.svg';
 
 export const meta: MetaFunction = ({ parentsData }) => {
   return {
-    title: `${parentsData.root.siteTitle} | Services`
+    title: `Services | ${parentsData.root.siteTitle}`
   };
 };
 

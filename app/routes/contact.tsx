@@ -3,7 +3,7 @@ import { Outlet } from '@remix-run/react';
 
 export const meta: MetaFunction = ({ parentsData }) => {
   return {
-    title: `${parentsData.root.siteTitle} | Contact`
+    title: `Contact | ${parentsData.root.siteTitle}`
   };
 };
 
