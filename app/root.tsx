@@ -1,10 +1,12 @@
 import type {
   LinksFunction,
   MetaFunction,
-  LoaderFunction
+  LoaderFunction,
+  ErrorBoundaryComponent
 } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -48,6 +50,42 @@ export const links: LinksFunction = () => [
     href: styles
   }
 ];
+
+export default function App() {
+  const location = useLocation();
+  const isIndexRoute = location.pathname === '/';
+
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div
+          className={
+            isIndexRoute
+              ? ''
+              : 'grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]'
+          }
+        >
+          <Navbar isIndexRoute={isIndexRoute} />
+          {isIndexRoute ? (
+            <Outlet />
+          ) : (
+            <main className="mt-8 mb-16">
+              <Outlet />
+            </main>
+          )}
+          {!isIndexRoute ? <Footer /> : null}
+        </div>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  );
+}
 
 export function CatchBoundary() {
   const caught = useCatch();
@@ -94,32 +132,36 @@ export function CatchBoundary() {
   );
 }
 
-export default function App() {
-  const location = useLocation();
-  const isIndexRoute = location.pathname === '/';
+export function ErrorBoundary({ error }) {
+  console.error(error);
   return (
     <html lang="en">
       <head>
-        <Meta />
+        <title>Error</title>
         <Links />
       </head>
-      <body>
-        <div
-          className={
-            isIndexRoute
-              ? ''
-              : 'grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]'
-          }
-        >
-          <Navbar isIndexRoute={isIndexRoute} />
-          {isIndexRoute ? (
-            <Outlet />
-          ) : (
-            <main className="mt-8 mb-16">
-              <Outlet />
-            </main>
-          )}
-          {!isIndexRoute ? <Footer /> : null}
+      <body className="min-h-screen">
+        <div className="grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]">
+          <div>
+            <Navbar isIndexRoute={false} />
+          </div>
+          <main className="mt-8 mb-16">
+            <div className="mx-auto max-w-7xl px-2">
+              <h1 className="mb-4 text-2xl font-bold">
+                Oops, we encountered an error!
+              </h1>
+              <p>
+                Our team is looking into it. Try refreshing the page or navigate
+                to{' '}
+                <Link className="text-blue-600 underline" to="/">
+                  home page
+                </Link>
+              </p>
+            </div>
+          </main>
+          <div>
+            <Footer />
+          </div>
         </div>
         <ScrollRestoration />
         <Scripts />
