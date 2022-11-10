@@ -2,10 +2,11 @@ import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Form, useActionData, useTransition } from '@remix-run/react';
-import { useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useEffect, useRef } from 'react';
 import invariant from 'tiny-invariant';
+import { useSessionStorage } from 'react-use';
 
-const phoneRegex = /^\(?([0-9]{3})\)?[-.●\s]?([0-9]{3})[-.●\s]?([0-9]{4})$/gi;
 const encode = (data: { [x: string]: string | number | boolean }) =>
   Object.keys(data)
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
@@ -57,21 +58,57 @@ export const action: ActionFunction = async ({ request }) => {
     },
     body: encode({ 'form-name': 'contact', ...contactData })
   });
+
   return redirect('/contact/thank-you');
 };
 
 export default function ContactIndexRoute() {
   const errors = useActionData<ActionData>();
-  const [phone, setPhone] = useState('');
   const inputClassName =
     'border border-slate-400 bg-white leading-none p-2 rounded-md w-full block focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-lime-500';
   const labelClassName = 'cursor-pointer font-semibold mb-1 inline-block';
   const errorClassName = 'font-normal text-sm italic text-red-500';
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const { state } = useTransition();
+  const isSubmitting = state === 'submitting';
+  const [contactIntent, setContactIntent] = useSessionStorage(
+    'contact-intent',
+    {
+      name: '',
+      phone: '',
+      email: '',
+      message: ''
+    },
+    false
+  );
+  const msgTextAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function handleInputChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void {
+    const updated = {
+      ...contactIntent,
+      [e.target.name]: e.target.value || e.currentTarget.value
+    };
+    setContactIntent(updated);
+  }
+
+  function handleSubmit() {
+    setContactIntent({
+      name: '',
+      phone: '',
+      email: '',
+      message: ''
+    });
+  }
+
+  useEffect(() => {
+    if (msgTextAreaRef?.current) {
+      msgTextAreaRef.current.value = contactIntent.message || '';
+    }
+  }, []);
 
   return (
-    <Form method="post" name="contact">
+    <Form method="post" name="contact" onSubmit={handleSubmit}>
       <div className="mb-4 grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClassName}>
@@ -85,6 +122,8 @@ export default function ContactIndexRoute() {
             type="text"
             name="name"
             className={inputClassName}
+            onChange={handleInputChange}
+            defaultValue={contactIntent.name}
             required
           />
         </div>
@@ -101,13 +140,9 @@ export default function ContactIndexRoute() {
             name="phone"
             className={inputClassName}
             required
-            onChange={(e) => {
-              setPhone(e.target.value.trim());
-            }}
-            onBlur={(e) => {
-              setPhone(e.target.value.trim().replace(phoneRegex, '($1) $2-$3'));
-            }}
-            value={phone}
+            onChange={handleInputChange}
+            onBlur={handleInputChange}
+            value={contactIntent.phone}
           />
         </div>
       </div>
@@ -124,6 +159,8 @@ export default function ContactIndexRoute() {
           name="email"
           required
           className={inputClassName}
+          defaultValue={contactIntent.email}
+          onChange={handleInputChange}
         />
       </div>
       <div className="mb-8">
@@ -131,10 +168,13 @@ export default function ContactIndexRoute() {
           Message:
         </label>
         <textarea
+          ref={msgTextAreaRef}
           id="message"
           name="message"
           rows={5}
           className={inputClassName}
+          onChange={handleInputChange}
+          value={contactIntent.message}
         />
       </div>
       <button
