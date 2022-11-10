@@ -17,6 +17,8 @@ export default function ServicesRoute() {
         src={housesImage}
         className="mx-auto mb-10 block w-[36rem] object-fill"
         alt="Houses"
+        width={999}
+        height={479}
       />
       <div className="grid gap-8 md:grid-cols-2 md:gap-10">
         <section className="transition-colors duration-200 md:p-4 md:hover:bg-lime-50">
