@@ -5,7 +5,6 @@ import type {
 } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import {
-  Link,
   Links,
   LiveReload,
   Meta,
@@ -132,7 +131,7 @@ export function CatchBoundary() {
   );
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary({ error }: { error: unknown }) {
   console.error(error);
   return (
     <html lang="en">
@@ -147,16 +146,10 @@ export function ErrorBoundary({ error }: { error: Error }) {
           </div>
           <main className="mt-8 mb-16">
             <div className="mx-auto max-w-7xl px-2">
-              <h1 className="mb-4 text-2xl font-bold">
+              <h1 className="mb-4 text-2xl font-bold text-red-600">
                 Oops, we encountered an error!
               </h1>
-              <p>
-                Our team is looking into it. Try refreshing the page or navigate
-                to{' '}
-                <Link className="text-blue-600 underline" to="/">
-                  home page
-                </Link>
-              </p>
+              {error instanceof Error ? <pre>{error.message}</pre> : null}
             </div>
           </main>
           <div>
