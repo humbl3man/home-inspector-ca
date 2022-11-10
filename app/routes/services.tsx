@@ -35,6 +35,7 @@ export default function ServicesRoute() {
           </p>
           <Link
             to="/contact"
+            prefetch="intent"
             className="mt-4 block w-max rounded-md border border-lime-700 bg-lime-700 px-3 py-2 leading-none text-white hover:border-lime-800 hover:bg-lime-800"
           >
             Get a Quote
@@ -53,6 +54,7 @@ export default function ServicesRoute() {
           </p>
           <Link
             to="/contact"
+            prefetch="intent"
             className="mt-4 block w-max rounded-md border border-lime-700 bg-lime-700 px-3 py-2 leading-none text-white hover:border-lime-800 hover:bg-lime-800"
           >
             Get a Quote

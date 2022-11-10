@@ -49,6 +49,7 @@ export default function Navbar({ isIndexRoute }: NavbarProps) {
         <div className="flex items-center justify-between">
           <Link
             to="/"
+            prefetch="intent"
             className={`${
               isIndexRoute ? 'text-white' : 'text-lime-900'
             } text-xl sm:text-2xl`}
