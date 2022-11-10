@@ -9,7 +9,7 @@ export function Footer({ isIndexRoute }: FooterProps) {
       className={
         isIndexRoute
           ? 'absolute bottom-0 left-0 w-full bg-transparent'
-          : 'bg-orange-100'
+          : 'bg-orange-50'
       }
     >
       <div className="mx-auto max-w-7xl py-4 px-2">
