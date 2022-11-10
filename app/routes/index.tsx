@@ -66,7 +66,6 @@ export default function IndexRoute() {
             >
               Request a Quote
             </Link>
-            s
           </motion.div>
         </div>
         <div className="absolute inset-0 h-full w-full bg-[rgba(196,99,72,0.71)] mix-blend-multiply" />
