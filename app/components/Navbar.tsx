@@ -1,6 +1,7 @@
 import { Link, useLocation } from '@remix-run/react';
 import { useState, useEffect } from 'react';
 import { CgMenuRightAlt as MenuIcon } from 'react-icons/cg';
+import { SITE_TITLE } from '~/config/site';
 import { DesktopNav } from './DesktopNav';
 import MobileNav from './MobileNav';
 
@@ -54,7 +55,7 @@ export default function Navbar({ isIndexRoute }: NavbarProps) {
               isIndexRoute ? 'text-white' : 'text-lime-900'
             } text-xl sm:text-2xl`}
           >
-            Home Inspectors California
+            {SITE_TITLE}
           </Link>
           <DesktopNav navLinks={navLinks} isIndexRoute={isIndexRoute} />
           <MobileNav
