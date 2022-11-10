@@ -67,14 +67,10 @@ export default function App() {
           }
         >
           <Navbar isIndexRoute={isIndexRoute} />
-          {isIndexRoute ? (
+          <main className={isIndexRoute ? '' : 'mt-8 mb-16'}>
             <Outlet />
-          ) : (
-            <main className="mt-8 mb-16">
-              <Outlet />
-            </main>
-          )}
-          {!isIndexRoute ? <Footer /> : null}
+          </main>
+          <Footer isIndexRoute={isIndexRoute} />
         </div>
         <ScrollRestoration />
         <Scripts />
