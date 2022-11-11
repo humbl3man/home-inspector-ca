@@ -10,9 +10,9 @@ import {
 import { useEffect } from 'react';
 import invariant from 'tiny-invariant';
 import { useSessionStorage } from 'react-use';
-import { encode } from '~/utils/encode';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { processContactRequest } from '~/contact.server';
 
 const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gim;
 const phoneRegex =
@@ -53,26 +53,21 @@ export const action: ActionFunction = async ({ request }) => {
 
   invariant(typeof name === 'string', 'Name is required');
   invariant(typeof email === 'string', 'Email is required');
-  invariant(emailRegex.test(String(email)), 'Email is incorrect');
   invariant(typeof phone === 'string', 'Phone is required');
   invariant(typeof message === 'string', 'Message is required');
 
-  const contactData = {
-    name,
-    email,
-    phone,
-    message
-  };
-
   try {
     // actually post data
-    await fetch(`${process.env.URL || request.url}/form`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+    await processContactRequest(
+      {
+        name,
+        email,
+        phone,
+        message
       },
-      body: encode({ 'form-name': 'contact', ...contactData })
-    });
+      'contact',
+      request.url
+    );
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw Error(err.message);
@@ -113,6 +108,7 @@ export default function ContactIndexRoute() {
     register,
     handleSubmit,
     watch,
+    clearErrors,
     formState: { errors: clientErrors }
   } = useForm<FormInputs>({
     defaultValues: {
@@ -134,6 +130,7 @@ export default function ContactIndexRoute() {
       method: 'post',
       replace: false
     });
+    clearErrors();
     clearFormDataInSession();
   };
 
@@ -188,11 +185,11 @@ export default function ContactIndexRoute() {
               <span className={errorClassName}>{serverErrors.phone}</span>
             ) : null}
             {clientErrors?.phone ? (
-              <div className={errorClassName}>
+              <span className={errorClassName}>
                 {clientErrors.phone.type === 'validate'
                   ? 'Please enter valid phone'
                   : clientErrors.phone.message}
-              </div>
+              </span>
             ) : null}
           </label>
           <input
@@ -202,7 +199,11 @@ export default function ContactIndexRoute() {
               clientErrors.phone || serverErrors?.phone ? 'border-red-600' : ''
             }`}
             {...register('phone', {
-              validate: (value) => phoneRegex.test(value),
+              // validate: (value) => phoneRegex.test(value),
+              pattern: {
+                value: phoneRegex,
+                message: 'Phone is invalid'
+              },
               required: 'Phone is required'
             })}
           />
@@ -229,7 +230,11 @@ export default function ContactIndexRoute() {
             clientErrors.email || serverErrors?.email ? 'border-red-600' : ''
           }`}
           {...register('email', {
-            validate: (value) => emailRegex.test(value),
+            // validate: (value) => emailRegex.test(value),
+            pattern: {
+              value: emailRegex,
+              message: 'Email is invalid'
+            },
             required: 'Email is required'
           })}
         />
