@@ -1,7 +1,7 @@
 import { SITE_TITLE } from '../config/site';
 
 type FooterProps = {
-  isIndexRoute: boolean;
+  isIndexRoute?: boolean;
 };
 export function Footer({ isIndexRoute }: FooterProps) {
   return (

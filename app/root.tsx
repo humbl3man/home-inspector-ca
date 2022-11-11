@@ -94,7 +94,7 @@ export function CatchBoundary() {
       <body className="min-h-screen">
         <div className="grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]">
           <div>
-            <Navbar isIndexRoute={false} />
+            <Navbar />
           </div>
           <main className="mt-8 mb-16">
             {caught.status === 404 ? (
@@ -138,7 +138,7 @@ export function ErrorBoundary({ error }: { error: unknown }) {
       <body className="min-h-screen">
         <div className="grid h-screen grid-rows-[auto_minmax(auto,_1fr)_auto]">
           <div>
-            <Navbar isIndexRoute={false} />
+            <Navbar />
           </div>
           <main className="mt-8 mb-16">
             <div className="mx-auto max-w-7xl px-2">

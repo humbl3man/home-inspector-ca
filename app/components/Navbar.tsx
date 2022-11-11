@@ -29,7 +29,7 @@ const navLinks = [
 ];
 
 type NavbarProps = {
-  isIndexRoute: boolean;
+  isIndexRoute?: boolean;
 };
 export default function Navbar({ isIndexRoute }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
