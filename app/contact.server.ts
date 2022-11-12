@@ -9,7 +9,7 @@ type ContactData = {
 
 export async function processContactRequest(
   contactData: ContactData,
-  formName: string,
+  formName?: string,
   requestURL?: string
 ) {
   return fetch(`${process.env.URL || requestURL}/form`, {
@@ -17,6 +17,6 @@ export async function processContactRequest(
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: encode({ 'form-name': formName, ...contactData })
+    body: encode({ 'form-name': formName || 'contact', ...contactData })
   });
 }

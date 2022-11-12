@@ -2,10 +2,7 @@ import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { getEnv } from '~/env.server';
-
-function formatPhone(phoneNum: string | number) {
-  return String(phoneNum).replace(/(\d{3,})(\d{3,})(\d{4,})/g, '($1)-$2-$3');
-}
+import { formatPhone } from '~/utils/format-phone';
 
 export const meta: MetaFunction = ({ parentsData }) => {
   return {
