@@ -51,23 +51,20 @@ export const action: ActionFunction = async ({ request }) => {
     return json<ActionData>(errors);
   }
 
+  // validate all form data values before submitting
   invariant(typeof name === 'string', 'Name is required');
   invariant(typeof email === 'string', 'Email is required');
   invariant(typeof phone === 'string', 'Phone is required');
   invariant(typeof message === 'string', 'Message is required');
 
   try {
-    // actually post data
-    await processContactRequest(
-      {
-        name,
-        email,
-        phone,
-        message
-      },
-      'contact',
-      request.url
-    );
+    // now it's time to submit request
+    await processContactRequest({
+      name,
+      email,
+      phone,
+      message
+    });
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw Error(err.message);
@@ -75,6 +72,7 @@ export const action: ActionFunction = async ({ request }) => {
     throw Error('Oops, something bad happened!');
   }
 
+  // navigate to thank you page on successful contact submit
   return redirect('/contact/thank-you');
 };
 
