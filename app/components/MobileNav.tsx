@@ -17,6 +17,7 @@ export default function MobileNav({
 }: MobileNavProps) {
   return (
     <motion.nav
+      id="site-navigation"
       style={{
         transformOrigin: 'top right'
       }}

@@ -69,6 +69,8 @@ export default function Navbar({ isIndexRoute }: NavbarProps) {
             type="button"
             className="sm:hidden"
             aria-label="Open Navigation Menu"
+            aria-controls="site-navigation"
+            aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen((prevState) => !prevState)}
           >
             <MenuIcon
