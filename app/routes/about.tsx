@@ -58,7 +58,7 @@ export default function AboutRoute() {
             <SectionCard
               image={{ src: detailImage, alt: 'experts' }}
               title="Knowledgeable Home Inspector Experts"
-              text="The main purpose of a home inspection is to give you the information needed to make an informed decision on the purchase. <br /> It is critical to choose the right inspector
+              body="The main purpose of a home inspection is to give you the information needed to make an informed decision on the purchase. <br /> It is critical to choose the right inspector
             for one of the most important emotional decisions and financial investments that you will ever make. Home inspections are an instrumental part of the home buying
             process that can save you a lot of time and money in the long run."
             />
@@ -67,7 +67,7 @@ export default function AboutRoute() {
             <SectionCard
               image={{ src: expertizeImage, alt: 'professional' }}
               title="We Notice Little Things"
-              text="Our inspections are based upon the International Standards of Practice for Performing a General Home Inspection, provided by InterNachi. <br /> This checklist may be used to
+              body="Our inspections are based upon the International Standards of Practice for Performing a General Home Inspection, provided by InterNachi. <br /> This checklist may be used to
         perform a visual inspection of a home and provide the inspector with a written report identifying the defects that were (1) observed and (2) deemed material."
             />
           </div>
@@ -76,7 +76,7 @@ export default function AboutRoute() {
             <SectionCard
               image={{ src: confidenceImage, alt: 'happy couple' }}
               title="Be Confident In Your Property Transaction"
-              text="When you work with us, we provide professional home inspectors that give their full attention to your home. <br />
+              body="When you work with us, we provide professional home inspectors that give their full attention to your home. <br />
           We pride ourselves on the high standard we set for our inspections, because we know what a safe home means to you."
             />
           </div>
