@@ -13,6 +13,7 @@ import { useSessionStorage } from 'react-use';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { processContactRequest } from '~/contact.server';
+import { mergeClasses } from '~/utils/merge-classes';
 
 const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gim;
 const phoneRegex =
@@ -167,9 +168,10 @@ export default function ContactIndexRoute() {
           <input
             id="name"
             type="text"
-            className={`${inputClassName} ${
-              clientErrors.name || serverErrors?.name ? 'border-red-600' : ''
-            }`}
+            className={`${mergeClasses({
+              [inputClassName]: true,
+              'border-red-600': clientErrors?.name || serverErrors?.name
+            })}`}
             {...register('name', {
               required: 'Name is required.'
             })}
@@ -193,9 +195,10 @@ export default function ContactIndexRoute() {
           <input
             id="phone"
             type="text"
-            className={`${inputClassName} ${
-              clientErrors.phone || serverErrors?.phone ? 'border-red-600' : ''
-            }`}
+            className={`${mergeClasses({
+              [inputClassName]: true,
+              'border-red-600': clientErrors?.phone || serverErrors?.phone
+            })}`}
             {...register('phone', {
               // validate: (value) => phoneRegex.test(value),
               pattern: {
@@ -224,9 +227,10 @@ export default function ContactIndexRoute() {
         <input
           id="email"
           type="email"
-          className={`${inputClassName} ${
-            clientErrors.email || serverErrors?.email ? 'border-red-600' : ''
-          }`}
+          className={`${mergeClasses({
+            [inputClassName]: true,
+            'border-red-600': clientErrors?.email || serverErrors?.email
+          })}`}
           {...register('email', {
             // validate: (value) => emailRegex.test(value),
             pattern: {
@@ -252,11 +256,10 @@ export default function ContactIndexRoute() {
         <textarea
           id="message"
           rows={5}
-          className={`${inputClassName} ${
-            clientErrors.message || serverErrors?.message
-              ? 'border-red-600'
-              : ''
-          }`}
+          className={`${mergeClasses({
+            [inputClassName]: true,
+            'border-red-600': clientErrors?.message || serverErrors?.message
+          })}`}
           {...register('message', {
             required: 'Message is required',
             minLength: {
